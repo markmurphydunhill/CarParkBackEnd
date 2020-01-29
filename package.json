@@ -1,0 +1,29 @@
+{
+  "name": "car-park-management-system",
+  "version": "1.0.0",
+  "description": "an application to host a car park management system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^7.3.0",
+    "dotenv": "^8.2.0",
+    "handlebars": "^4.7.2",
+    "hapi": "^18.1.0",
+    "hapi-auth-cookie": "^10.0.0",
+    "inert": "^5.1.3",
+    "mais-mongoose-seeder": "^1.0.7",
+    "mongoose": "^5.8.9",
+    "vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  }
+}
