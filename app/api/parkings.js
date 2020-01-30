@@ -14,6 +14,24 @@ const Parkings
         }
     },
 
+    findOneParking: {
+        auth: false,
+        //auth: {
+        //    strategy: 'jwt',
+        //},
+        handler: async function(request, h) {
+            try {
+                const parking = await Parking.findOne({ _id: request.params.id });
+                if (!parking) {
+                    return Boom.notFound('No Parking Event with this id');
+                }
+                return parking;
+            } catch (err) {
+                return Boom.notFound('No Event with this id');
+            }
+        }
+    },
+
     findPresent:  {
         auth: false,
         handler: async function(request, h) {
@@ -23,23 +41,17 @@ const Parkings
         }
     },
 
-    /*findOne: {
+    findNumberPresent:  {
         auth: false,
-        handler: async function (request, h) {
-            try {
-                const parkings = await Parking.find({carReg: request.params.id});
-                if (!parkings) {
-                    return Boom.notFound('No Car History for that Registration Number');
-                }
-                return parkings;
-            } catch (err) {
-                return Boom.notFound('No Region with this id');
-            }
+        handler: async function(request, h) {
+            const parkings = await Parking.find({ status: true });
+            const number = parkings.length;
 
+            return number;
         }
-    }*/
+    },
 
-    findCar: {
+     findCar: {
         auth: false,
        // auth: {
          //   strategy: 'jwt',
@@ -115,7 +127,18 @@ const Parkings
             }
             return Boom.notFound('Island not found');
         }
-    }
+    },
+
+    deleteAllParkings: {
+        auth: false,
+        //auth: {
+         //   strategy: 'jwt',
+       // },
+        handler: async function(request, h) {
+            await Parking.deleteMany({});
+            return { success: true };
+        }
+    },
 
 };
 

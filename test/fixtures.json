@@ -1,0 +1,48 @@
+{
+  "users": {
+    "_model": "User",
+    "homer": {
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret"
+    }
+  },
+  "parkings": [
+     {
+      "carReg": "08w2207",
+      "status": false,
+      "carEnterDate": "2020-01-22 12:09:56.595Z",
+      "carExitDate": "2020-01-22 14:21:40.750Z"
+    },
+     {
+      "carReg": "08c24454",
+      "status": false,
+      "carEnterDate": "2020-01-23 12:09:56.595Z",
+      "carExitDate": "2020-01-23 14:21:40.750Z"
+    },
+     {
+      "carReg": "08d12345",
+      "status": true,
+      "carEnterDate": "2020-01-23 12:09:56.595Z",
+      "carExitDate": ""
+    },
+     {
+      "carReg": "08c24454",
+      "status": false,
+      "carEnterDate": "2020-01-20 12:09:56.595Z",
+      "carExitDate": "2020-01-20 14:21:40.750Z"
+    }
+  ],
+  "newParking": {
+    "_model": "Parking",
+    "one": {
+      "carReg": "08L2207",
+      "status": false,
+      "carEnterDate": "2020-01-22 12:09:56.595Z",
+      "carExitDate": "2020-01-22 14:21:40.750Z"
+    }
+  }
+}
+
+

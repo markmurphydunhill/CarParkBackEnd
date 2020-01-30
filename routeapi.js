@@ -3,11 +3,15 @@ const Users = require ('./app/api/users')
 
 module.exports = [
     { method: 'GET', path: '/api/parkings', config: Parkings.find },
+    { method: 'GET', path: '/api/parking/{id}', config: Parkings.findOneParking },
+
     { method: 'GET', path: '/api/parkingPresent', config: Parkings.findPresent },
     { method: 'GET', path: '/api/carHistory/{id}', config: Parkings.findCar },
     { method: 'POST', path: '/api/carEntry', config: Parkings.carEnter },
     { method: 'POST', path: '/api/carExit', config: Parkings.carExit },
     { method: 'DELETE', path: '/api/deleteParking/{id}', config: Parkings.deleteOneParking },
+    { method: 'DELETE', path: '/api/deleteParkings', config: Parkings.deleteAllParkings },
+    { method: 'GET', path: '/api/parkingTotal', config: Parkings.findNumberPresent },
 
     { method: 'GET', path: '/api/users', config: Users.find },
     { method: 'GET', path: '/api/users/{id}', config: Users.findOne },
