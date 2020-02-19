@@ -55,15 +55,47 @@ class ParkingService {
         try {
             const response = await axios.get(this.baseUrl + '/api/user/' + id);
             return response.data;
-            return response.data;
+           // return response.data;
         } catch (e) {
             return null;
         }
     }
 
     async createUser(newUser) {
-        const response = await axios.post(this.baseUrl + '/api/users', newUser);
+        const response = await axios.post(this.baseUrl + '/api/createuser', newUser);
         return response.data;
+    }
+
+    async authenticate(user) {
+        try {
+            const response = await axios.post(this.baseUrl + '/api/users/authenticate', user);
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+            return response.data;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async clearAuth(user) {
+        axios.defaults.headers.common['Authorization'] = '';
+    }
+
+    async deleteAllUsers() {
+        try {
+            const response = await axios.delete(this.baseUrl + '/api/deleteusers');
+            return response.data;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async deleteOneUser(id) {
+        try {
+            const response = await axios.delete(this.baseUrl + '/api/deleteuser/' + id);
+            return response.data;
+        } catch (e) {
+            return null;
+        }
     }
 }
 

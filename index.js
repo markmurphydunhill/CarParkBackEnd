@@ -1,6 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
+const utils = require('./app/api/utils.js');
 
 const dotenv = require('dotenv');
 const result = dotenv.config();
@@ -10,8 +11,8 @@ if (result.error) {
 }
 
 const server = Hapi.server({
-    port: 3001,
-    host: 'localhost'
+    port: process.env.PORT || 3001,
+    routes: { cors: true }
 });
 
 require('./app/models/db');
@@ -21,6 +22,7 @@ async function init() {
     await server.register(require('inert'));
     await server.register(require('vision'));
     await server.register(require('hapi-auth-cookie'));
+    await server.register(require('hapi-auth-jwt2'));
 
     server.views({
         engines: {
@@ -34,6 +36,11 @@ async function init() {
         isCached: false,
     });
 
+    server.auth.strategy('jwt', 'jwt', {
+        key: 'secretpasswordnotrevealedtoanyone',
+        validate: utils.validate,
+        verifyOptions: { algorithms: ['HS256'] },
+    });
 
 
 
@@ -48,6 +55,8 @@ process.on('unhandledRejection', err => {
     console.log(err);
     process.exit(1);
 });
+
+
 
 
 

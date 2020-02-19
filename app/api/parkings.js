@@ -7,7 +7,9 @@ const Parkings
     = {
 
     find: {
-        auth: false,
+        auth: {
+                strategy: 'jwt',
+            },
         handler: async function(request, h) {
             const parkings = await Parking.find();
             return parkings;
@@ -15,10 +17,9 @@ const Parkings
     },
 
     findOneParking: {
-        auth: false,
-        //auth: {
-        //    strategy: 'jwt',
-        //},
+        auth: {
+            strategy: 'jwt',
+        },
         handler: async function(request, h) {
             try {
                 const parking = await Parking.findOne({ _id: request.params.id });
@@ -33,7 +34,9 @@ const Parkings
     },
 
     findPresent:  {
-        auth: false,
+        auth: {
+            strategy: 'jwt',
+        },
         handler: async function(request, h) {
             const parkings = await Parking.find({ status: true });
 
@@ -42,7 +45,9 @@ const Parkings
     },
 
     findNumberPresent:  {
-        auth: false,
+        auth: {
+            strategy: 'jwt',
+        },
         handler: async function(request, h) {
             const parkings = await Parking.find({ status: true });
             const number = parkings.length;
@@ -52,10 +57,9 @@ const Parkings
     },
 
      findCar: {
-        auth: false,
-       // auth: {
-         //   strategy: 'jwt',
-        //},
+         auth: {
+             strategy: 'jwt',
+         },
         handler: async function(request, h) {
             try {
                 const parkings = await Parking.find({ carReg: request.params.id });
@@ -70,7 +74,9 @@ const Parkings
     },
 
     carEnter: {
-        auth: false,
+        auth: {
+            strategy: 'jwt',
+        },
         handler: async function(request, h) {
             const data = request.payload;
             const enterDate  = new Date();
@@ -93,7 +99,9 @@ const Parkings
     },
 
     carExit: {
-        auth: false,
+        auth: {
+            strategy: 'jwt',
+        },
 
         handler: async function(request, h) {
             const carLeaving = request.payload.carReg;

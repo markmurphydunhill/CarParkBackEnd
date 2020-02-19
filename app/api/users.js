@@ -2,7 +2,7 @@
 
 const Boom = require('boom');
 const User = require('../models/user');
-//const utils = require('./utils.js');
+const utils = require('./utils.js');
 
 const Users = {
 

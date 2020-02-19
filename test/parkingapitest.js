@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const assert = require('chai').assert;
@@ -11,10 +9,20 @@ suite('Parking API tests', function () {
 
     let parkings = fixtures.parkings;
     let newParking = fixtures.newParking;
+    let newUser = fixtures.newUser;
 
     const parkingService = new ParkingService('http://localhost:3001');
 
+    suiteSetup(async function() {
+        await parkingService.deleteAllUsers();
+        const returnedUser = await parkingService.createUser(newUser);
+        const response = await parkingService.authenticate(newUser);
+    });
 
+    suiteTeardown(async function() {
+        await parkingService.deleteAllUsers();
+        parkingService.clearAuth();
+    });
 
     setup(async function () {
         await parkingService.deleteAllParkings();
@@ -24,14 +32,16 @@ suite('Parking API tests', function () {
         await parkingService.deleteAllParkings();
     });
 
+
     test('create a parking event', async function () {
         //console.log(newParking);
         const returnedParking = await parkingService.createParking(newParking);
-        //console.log(returnedParking);
+       // console.log(returnedParking);
         assert.equal(returnedParking.carReg, newParking.carReg);
         //assert.equal(returnedCandidate.lastName, newCandidate.lastName);
-       // assert.equal(returnedCandidate.office, newCandidate.office);
+        // assert.equal(returnedCandidate.office, newCandidate.office);
         assert.isDefined(returnedParking._id);
+
     });
 
     test('get parking event', async function () {
@@ -67,54 +77,3 @@ suite('Parking API tests', function () {
     });
 });
 
-/*
-
-suite('Parking API tests', function () {
-
-    test('get all parking events', async function () {
-        const response = await axios.get('http://localhost:3001/api/parkings');
-        const parkings = response.data;
-        assert.equal(4, parkings.length);
-
-        assert.equal(parkings[0].carReg, '08w2207');
-        assert.equal(parkings[0].status, false);
-
-        assert.equal(parkings[1].carReg, '08c24454');
-        assert.equal(parkings[1].status, false);
-    });
-
-    test('get one parking event', async function () {
-        let response = await axios.get('http://localhost:3001/api/parkings');
-        const parkings = response.data;
-        assert.equal(4, parkings.length);
-
-        const oneParkingUrl = 'http://localhost:3001/api/carHistory/' + parkings[0].carReg
-
-        response = await axios.get(oneParkingUrl);
-
-       const oneParking = response.data;
-        console.log(oneParking);
-
-        assert.equal(oneParking[0].carReg, '08w2207');
-        assert.equal(oneParking[0].status, false);
-
-    });
-
-    test('create a parking event', async function () {
-        const parkingUrl = 'http://localhost:3001/api/carEntry';
-        const newParking = {
-            "carReg": "08g87678",
-            "status": false,
-            "carEnterDate": "",
-            "carExitDate": ""
-        };
-
-        const response = await axios.post(parkingUrl, newParking);
-        const returnedParking = response.data;
-        assert.equal(201, response.status);
-
-        assert.equal(returnedParking.carReg, '08g87678');
-        assert.equal(returnedParking.status, true);
-    });
-
-});*/
