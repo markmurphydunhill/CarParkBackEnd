@@ -30,18 +30,7 @@ const ParkingRecord = {
             });
         }
     },
-  /*  donate: {
-        handler: async function(request, h) {
-            const data = request.payload;
-            const newDonation = new Donation({
-                amount: data.amount,
-                method: data.method
-            });
-            await newDonation.save();
-            return h.redirect('/report');
-        }
-    }
-};*/
+
 
     carEnter: {
         handler: async function(request, h) {
