@@ -74,9 +74,10 @@ const Parkings
     },
 
     carEnter: {
-        auth: {
+       /* auth: {
             strategy: 'jwt',
-        },
+        },*/
+        auth: false,
         handler: async function(request, h) {
             const data = request.payload;
             const enterDate  = new Date();
@@ -99,19 +100,22 @@ const Parkings
     },
 
     carExit: {
-        auth: {
+        /*auth: {
             strategy: 'jwt',
-        },
+        },*/
+        auth: false,
 
         handler: async function(request, h) {
             const carLeaving = request.payload.carReg;
+
             console.log(carLeaving);
+
+            const car = await Parking.findOne({carReg: carLeaving});
+
 
             const exitDate  = new Date();
             const parkingStatus = false;
-
-            const car = await Parking.findOne({carReg: carLeaving});
-            console.log(car);
+            //console.log(car);
 
             car.carExitDate = exitDate;
             car.status = parkingStatus;
@@ -133,7 +137,7 @@ const Parkings
             if (response.deletedCount == 1) {
                 return { success: true };
             }
-            return Boom.notFound('Island not found');
+            return Boom.notFound('Parking not found');
         }
     },
 
