@@ -120,8 +120,9 @@ const Parkings
             car.carExitDate = exitDate;
             car.status = parkingStatus;
             await car.save();
-            if (carLeaving) {
-                return h.response(carLeaving).code(201);
+
+            if (car) {
+                return h.response(car).code(201);
             }
             return Boom.badImplementation('error creating parking event');
         }
